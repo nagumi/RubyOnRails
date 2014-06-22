@@ -6,7 +6,15 @@ class TopicsController < ApplicationController
     @topic.votes.create
     redirect_to(topics_path)
   end
-  
+
+  def downvote
+    @topic = Topic.find(params[:id])
+    last_vote = @topic.votes.last
+    if last_vote
+      last_vote.destroy
+    end
+    redirect_to(topics_path)
+  end
   # GET /topics
   # GET /topics.json
   def index
